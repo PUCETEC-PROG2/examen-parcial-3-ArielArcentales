@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %} Lista de Álbumes {% endblock title %}
+{% block content %}
+<h3>Álbumes</h3>
+{% if user.is_authenticated %}
+<a href="{% url 'nuevo_album' %}" class="btn btn-success mb-3"> Añadir Álbum </a>
+{% endif %}
+<div class="row">
+  {% for album in albums %}
+  <div class="col-sm-4">
+    <div class="card" style="width: 18rem;">
+      <img src="{{album.portada.url}}" class="card-img-top" alt="Portada del álbum">
+      <div class="card-body">
+        <h5 class="card-title">{{ album.titulo }}</h5>
+        <p class="card-text">Año de Lanzamiento: {{ album.ano_lanzamiento }}</p>
+        <p class="card-text">Género: {{ album.genero }}</p>
+        <a href="{% url 'detalle_album' album.id %}" class="btn btn-primary">
+          <i class="fa-solid fa-eye"></i> Ver
+        </a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'editar_album' album.id %}" class="btn btn-primary">
+          <i class="fa-solid fa-pencil"></i> Editar
+        </a>
+        <a href="{% url 'eliminar_album' album.id %}" class="btn btn-danger">
+          <i class="fa-solid fa-trash"></i> Eliminar
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %} Detalle del Álbum {% endblock title %}
+{% block content %}
+    <div class="bg-light p-4 rounded">
+        <h3>Detalle del Álbum</h3>
+        <div class="card" style="width: 18rem; margin-bottom: 20px;">
+            {% if album.portada %}
+            <img src="{{ album.portada.url }}" class="card-img-top" alt="Portada del álbum">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ album.titulo }}</h5>
+                <p class="card-text">Año de Lanzamiento: {{ album.ano_lanzamiento }}</p>
+                <p class="card-text">Género: {{ album.genero }}</p>
+                <p class="card-text">Artista: {{ album.artista.nombre }}</p>
+                <a href="{% url 'editar_album' album.id %}" class="btn btn-primary">
+                    <i class="fa-solid fa-pencil"></i> Editar
+                </a>
+                <a href="{% url 'eliminar_album' album.id %}" class="btn btn-danger">
+                    <i class="fa-solid fa-trash"></i> Eliminar
+                </a>
+            </div>
+        </div>
+        <a href="{% url 'listar_albums' %}" class="btn btn-secondary">Regresar</a>
+    </div>
+{% endblock content %}
